@@ -1,61 +1,50 @@
 import { StyleSheet, Text, View, TouchableOpacity, Modal, Button, TextInput } from 'react-native';
 import { useState } from "react";
+import ModalCustom from './src/components/ModalCustom';
+import Header from './src/components/Header';
+import ItemList from './src/components/ItemList';
 export default function App() {
 
+  const [taskItem, setTaskItem] = useState("")
+  const [taskList, setTaskList] = useState([])
   const [modalVisible, setModalVisible] = useState(false)
 
   const handleOpenModal = () => {
     setModalVisible(true)
   }
 
-  const handleChangeText = () => {
+  const handleChangeText = (e) => setTaskItem(e)
 
-  }
 
   const handleAddTask = () => {
-
+    setTaskList(currentValue => [
+      ...currentValue,
+      { id: Math.random().toString(), value: taskItem }
+    ])
+    setTaskItem("")
   }
 
   const handleCancelModal = () => {
     setModalVisible(false)
   }
 
+
+
   return (
     <View style={styles.container}>
-      <View style={styles.headerContainer}>
-        <View style={styles.titleContainer}>
-          <Text style={styles.titleText}>Lista de Tareas</Text>
-        </View>
-        <TouchableOpacity
-          style={styles.addTaskContainer}
-          onPress={handleOpenModal}>
-          <Text style={styles.addTaskText}>+</Text>
-        </TouchableOpacity>
-      </View>
-      <Modal
-        visible={modalVisible}
-        animationType="slide"
-        transparent={true}>
-        <View>
-          <View>
-            <Text>Ingrese una tarea</Text>
-          </View>
-        </View>
-        <View>
-          <TextInput
-            // style={styles}
-            onChangeText={handleChangeText}
-            // value={textItem}
-            placeholder={"Comenzemos..."}
-          />
-        </View>
-        <View>
-          <Button title="Añadir" onPress={handleAddTask} />
-          <Button title="Cancelar" onPress={handleCancelModal} />
-        </View>
-      </Modal>
-
-
+      <Header 
+      handleOpenModal={handleOpenModal}/>
+      <ModalCustom
+        modalVisible={modalVisible}
+        handleChangeText={handleChangeText}
+        taskItem={taskItem}
+        handleAddTask={handleAddTask}
+        handleCancelModal={handleCancelModal} 
+        />
+      <ItemList
+      taskList={taskList}
+      />
+        
     </View>
   );
 }
@@ -66,27 +55,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#CE0930',
     paddingTop: 30,
     paddingHorizontal: 10
-  },
-  headerContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center'
-  },
-  titleContainer: {
-
-  },
-  titleText: {
-    fontSize: 24,
-    color: '#fff',
-    fontWeight: 'bold'
-  },
-  addTaskContainer: {
-    backgroundColor: '#fff',
-    paddingHorizontal: 10,
-    borderRadius: 6,
-  },
-  addTaskText: {
-    fontSize: 24,
-    color: '#CE0930',
   }
 });
