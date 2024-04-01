@@ -7,16 +7,29 @@ import ModalConfirmDeleteTask from './ModalConfirmDeleteTask'
 
 const ItemList = ({ taskList }) => {
 
-    const [ modalConfirmDeleteTaskVisible, setModalConfirmDeleteTaskVisible ] = useState(false)
-
+    const [modalConfirmDeleteTaskVisible, setModalConfirmDeleteTaskVisible] = useState(false)
+    const [taskSelected, setTaskSelected] = useState({})
     const handleEditTask = () => {
 
     }
 
-    const handleModalConfirmDeleteTask = () => {
+    //Abre el Modal para eliminar la tarea seleccionada
+    const handleModalConfirmDeleteTask = (item) => {
+        setTaskSelected(item)
         setModalConfirmDeleteTaskVisible(true)
     }
+    //Cierra el Modal de eliminar tarea
+    const handleCancelModalConfirmDeleteTask = () => {
+        setModalConfirmDeleteTaskVisible(false)
+        setTaskSelected({})
+    }
 
+    //Elimina la tarea seleccionada
+  const handleDeletedTask = () => {
+    const filteredTaskList = taskList.filter(task => task !== taskSelected)
+    setTaskList(filteredTaskList)
+    setModalConfirmDeleteTaskVisible(false)
+}
     return (
         <View style={styles.taskContainer}>
             <FlatList
@@ -29,12 +42,12 @@ const ItemList = ({ taskList }) => {
                         <View style={styles.iconsContainer}>
                             <TouchableOpacity
                                 style={styles.editIconContainer}
-                                onPress={handleEditTask(item)}>
+                                onPress={handleEditTask}>
                                 <MaterialIcons name="edit" size={24} color="white" style={styles.editIcon} />
                             </TouchableOpacity>
                             <TouchableOpacity
                                 style={styles.deleteIconContainer}
-                                onPress={handleModalConfirmDeleteTask}>
+                                onPress={() => handleModalConfirmDeleteTask(item)}>
                                 <MaterialIcons name="delete" size={24} color="white" style={styles.deleteIcon} />
                             </TouchableOpacity>
                         </View>
@@ -42,7 +55,11 @@ const ItemList = ({ taskList }) => {
                 }
             />
             <ModalConfirmDeleteTask
-             modalConfirmDeleteTaskVisible={modalConfirmDeleteTaskVisible}/>
+                modalConfirmDeleteTaskVisible={modalConfirmDeleteTaskVisible}
+                taskSelected={taskSelected}
+                handleCancelModalConfirmDeleteTask={handleCancelModalConfirmDeleteTask}
+                handleDeletedTask={handleDeletedTask} />
+
         </View>
     )
 }

@@ -28,8 +28,6 @@ export default function App() {
     setModalCustomVisible(false)
   }
 
-
-
   return (
     <View style={styles.container}>
       <Header 
