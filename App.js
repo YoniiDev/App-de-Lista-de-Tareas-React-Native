@@ -7,10 +7,10 @@ export default function App() {
 
   const [taskItem, setTaskItem] = useState("")
   const [taskList, setTaskList] = useState([])
-  const [modalVisible, setModalVisible] = useState(false)
+  const [modalCustomVisible, setModalCustomVisible] = useState(false)
 
   const handleOpenModal = () => {
-    setModalVisible(true)
+    setModalCustomVisible(true)
   }
 
   const handleChangeText = (e) => setTaskItem(e)
@@ -25,7 +25,7 @@ export default function App() {
   }
 
   const handleCancelModal = () => {
-    setModalVisible(false)
+    setModalCustomVisible(false)
   }
 
 
@@ -35,7 +35,7 @@ export default function App() {
       <Header 
       handleOpenModal={handleOpenModal}/>
       <ModalCustom
-        modalVisible={modalVisible}
+        modalCustomVisible={modalCustomVisible}
         handleChangeText={handleChangeText}
         taskItem={taskItem}
         handleAddTask={handleAddTask}

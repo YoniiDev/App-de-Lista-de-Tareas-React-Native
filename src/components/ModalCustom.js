@@ -1,10 +1,10 @@
 import { StyleSheet, Text, View, Modal, TextInput, Button } from 'react-native'
 import React from 'react'
 
-const ModalCustom = ({modalVisible, handleChangeText, taskItem, handleAddTask, handleCancelModal}) => {
+const ModalCustom = ({modalCustomVisible, handleChangeText, taskItem, handleAddTask, handleCancelModal}) => {
     return (
         <Modal
-            visible={modalVisible}
+            visible={modalCustomVisible}
             animationType="slide"
             transparent={true}>
             <View style={styles.modalStyle}>

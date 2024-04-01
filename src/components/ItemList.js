@@ -1,10 +1,20 @@
 import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native'
 import React from 'react'
+import { useState } from 'react';
+import { MaterialIcons } from '@expo/vector-icons';
+import ModalConfirmDeleteTask from './ModalConfirmDeleteTask'
+
 
 const ItemList = ({ taskList }) => {
 
-    const handleItemListModal = () => {
+    const [ modalConfirmDeleteTaskVisible, setModalConfirmDeleteTaskVisible ] = useState(false)
 
+    const handleEditTask = () => {
+
+    }
+
+    const handleModalConfirmDeleteTask = () => {
+        setModalConfirmDeleteTaskVisible(true)
     }
 
     return (
@@ -14,15 +24,25 @@ const ItemList = ({ taskList }) => {
                 data={taskList}
                 keyExtractor={task => task.id.toString()}
                 renderItem={({ item }) =>
-                    <TouchableOpacity
-                        style={styles.cardTask}
-                        onPress={handleItemListModal(item)}>
-
+                    <View style={styles.renderItemContainer}>
                         <Text style={styles.taskText}>{item.value}</Text>
-                    </TouchableOpacity>
-
+                        <View style={styles.iconsContainer}>
+                            <TouchableOpacity
+                                style={styles.editIconContainer}
+                                onPress={handleEditTask(item)}>
+                                <MaterialIcons name="edit" size={24} color="white" style={styles.editIcon} />
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                style={styles.deleteIconContainer}
+                                onPress={handleModalConfirmDeleteTask}>
+                                <MaterialIcons name="delete" size={24} color="white" style={styles.deleteIcon} />
+                            </TouchableOpacity>
+                        </View>
+                    </View>
                 }
             />
+            <ModalConfirmDeleteTask
+             modalConfirmDeleteTaskVisible={modalConfirmDeleteTaskVisible}/>
         </View>
     )
 }
@@ -33,29 +53,41 @@ const styles = StyleSheet.create({
     taskContainer: {
         marginTop: 15,
         alignItems: 'center',
-        backgroundColor: 'white',
         width: '100%',
-        paddingVertical: 10,
-        paddingHorizontal: 10
 
     },
     flatlist: {
         width: '100%',
-        backgroundColor: 'black'
     },
-    cardTask: {
-        justifyContent: 'center',
+    renderItemContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
         alignItems: 'center',
-        backgroundColor: "#cccccc",
-        width: '100%',
-        paddingVertical: 10,
-        marginVertical: 10,
-        borderRadius: 10
+        marginBottom: 5,
+        backgroundColor: '#2a2c33',
+        padding: 4,
+        borderRadius: 6
     },
     taskText: {
-        backgroundColor:'green',
+        color: 'white',
         fontWeight: "bold",
         fontSize: 16
-    }
+    },
+    iconsContainer: {
+        flexDirection: 'row',
+        gap: 6
+    },
+    editIconContainer: {
+
+    },
+    editIcon: {
+
+    },
+    deleteIconContainer: {
+
+    },
+    deleteIcon: {
+
+    },
 
 })

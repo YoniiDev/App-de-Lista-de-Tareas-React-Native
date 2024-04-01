@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import React from 'react'
+import { MaterialIcons } from '@expo/vector-icons';
 
 //snipet: rnfes
 const Header = ({ handleOpenModal }) => {
@@ -11,7 +12,7 @@ const Header = ({ handleOpenModal }) => {
             <TouchableOpacity
                 style={styles.addTaskContainer}
                 onPress={handleOpenModal}>
-                <Text style={styles.addTaskText}>+</Text>
+                <MaterialIcons name="add-task" size={20} color="#CE0930" style={styles.addTaskIcon} />
             </TouchableOpacity>
         </View>
     )
@@ -38,9 +39,8 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         borderRadius: 6,
     },
-    addTaskText: {
-        fontSize: 24,
-        color: '#CE0930',
+    addTaskIcon: {
+        paddingVertical: 4
     },
 
 })
